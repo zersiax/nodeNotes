@@ -1,10 +1,8 @@
-console.log('Starting notes.js');
-
 const fs = require('fs');
 
 var fetchNotes = () => {
   try {
-    var notesString = fs.readFileSync('notes-data.json');
+    var notesString = fs.readFileSync('data.json');
     return JSON.parse(notesString);
   } catch (e) {
     return [];
@@ -12,7 +10,7 @@ var fetchNotes = () => {
 };
 
 var saveNotes = (notes) => {
-  fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+  fs.writeFileSync('data.json', JSON.stringify(notes));
 };
 
 var addNote = (title, body) => {
@@ -31,13 +29,13 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-  console.log('Getting all notes');
+  return fetchNotes();
 };
 
 var getNote = (title) => {
   var notes = fetchNotes();
   var filteredNotes = notes.filter((note) => note.title === title);
-  return filteredNotes[0]; // filter always returns an array, so we need to grab the first element even though there's only one element
+  return filteredNotes[0];
 };
 
 var removeNote = (title) => {
